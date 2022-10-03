@@ -1,7 +1,19 @@
 const router = require("express").Router();
 
 const axios = require("axios");
-let BBModel = require('../models/BB.model')
+let BBModel = require('../models/BB.model');
+const Post = require("../models/Post.model");
+const User = require("../models/User.model");
+
+router.get('/post', (reeq, res, next) => {
+    Post.find().populate('userId')
+      .then(( data) => {
+          res.json(data)
+      })
+      .catch((err) => {
+        next(err)
+      })
+})
 
 /* GET home page */
 router.get("/", (req, res, next) => {
